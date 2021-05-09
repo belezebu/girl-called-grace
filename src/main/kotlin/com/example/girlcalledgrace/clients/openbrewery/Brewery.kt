@@ -1,4 +1,4 @@
-package com.example.girlcalledgrace.model
+package com.example.girlcalledgrace.clients.openbrewery
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

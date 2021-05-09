@@ -1,6 +1,5 @@
-package com.example.girlcalledgrace.client
+package com.example.girlcalledgrace.clients.openbrewery
 
-import com.example.girlcalledgrace.model.Brewery
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.awaitBody
