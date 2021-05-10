@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component
 
 @ConfigurationProperties("clients.open-brewery")
 @Component
-data class OpenBreweryProperties (
-    var baseUrl: String = "https://api.openbrewerydb.org",
+data class OpenBreweryProperties(
+        var baseUrl: String = "https://api.openbrewerydb.org",
 )

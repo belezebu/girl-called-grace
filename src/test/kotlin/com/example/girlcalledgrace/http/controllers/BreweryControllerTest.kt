@@ -1,8 +1,6 @@
-package com.example.girlcalledgrace.controllers
+package com.example.girlcalledgrace.http.controllers
 
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class BreweryControllerTest {
 

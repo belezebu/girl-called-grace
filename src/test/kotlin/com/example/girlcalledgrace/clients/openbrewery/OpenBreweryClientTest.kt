@@ -1,6 +1,6 @@
 package com.example.girlcalledgrace.clients.openbrewery
 
-import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -22,10 +22,12 @@ internal class OpenBreweryClientTest {
     @Test
     internal fun searchBreweriesTest() {
         runBlocking {
-            coEvery { webClient.get()
+            every {
+                webClient.get()
                         .uri(any<Function<UriBuilder, URI>>())
                         .retrieve()
-                        .bodyToMono(any<ParameterizedTypeReference<List<Brewery>>>())} returns Mono.just(listOf(brewery))
+                        .bodyToMono(any<ParameterizedTypeReference<List<Brewery>>>())
+            } returns Mono.just(listOf(brewery))
             val result = victim.searchBreweries(searchQuery)
             assertEquals(listOf(brewery), result)
         }
@@ -33,12 +35,13 @@ internal class OpenBreweryClientTest {
 
     @Test
     internal fun listBreweriesTest() {
-        val brewery = Brewery("a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "c", "d", "e", "f", "g")
         runBlocking {
-            coEvery { webClient.get()
-                    .uri(any<Function<UriBuilder, URI>>())
-                    .retrieve()
-                    .bodyToMono(any<ParameterizedTypeReference<List<Brewery>>>())} returns Mono.just(listOf(brewery))
+            every {
+                webClient.get()
+                        .uri(any<Function<UriBuilder, URI>>())
+                        .retrieve()
+                        .bodyToMono(any<ParameterizedTypeReference<List<Brewery>>>())
+            } returns Mono.just(listOf(brewery))
             val result = victim.listBreweries()
             assertEquals(listOf(brewery), result)
         }
@@ -47,10 +50,12 @@ internal class OpenBreweryClientTest {
     @Test
     internal fun findBreweryTest() {
         runBlocking {
-            coEvery { webClient.get()
-                    .uri(any<Function<UriBuilder, URI>>())
-                    .retrieve()
-                    .bodyToMono(any<ParameterizedTypeReference<Brewery>>())} returns Mono.just(brewery)
+            every {
+                webClient.get()
+                        .uri(any<Function<UriBuilder, URI>>())
+                        .retrieve()
+                        .bodyToMono(any<ParameterizedTypeReference<Brewery>>())
+            } returns Mono.just(brewery)
             val result = victim.findBrewery("12345")
             assertEquals(brewery, result)
         }
