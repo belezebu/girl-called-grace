@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RestController
 class BreweryController(private val openBreweryClient: OpenBreweryClient) {
 
     @GetMapping("/breweries")
-    suspend fun searchBreweries(@RequestParam(name = "text") searchText: String): List<Brewery> = openBreweryClient.searchBreweries(searchText)
+    suspend fun getBreweries(@RequestParam(name = "text") searchText: String?): List<Brewery> {
+        if(searchText != null){
+            return openBreweryClient.searchBreweries(searchText)
+        }
+        return openBreweryClient.listBreweries()
+    }
 
     @GetMapping("/breweries/{id}")
-    suspend fun findBrewery(@PathVariable(name = "id") breweryId: String): Brewery = openBreweryClient.findBrewery(breweryId)
+    suspend fun findBrewery(@PathVariable(name = "id") breweryId: String): Brewery = openBreweryClient.findBrewery(breweryId)?: throw Exception("Brewery Not Found")
 }

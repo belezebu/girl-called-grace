@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient
 @Configuration
 class OpenBreweryConfig {
     @Bean
-    fun webClient(builder: WebClient.Builder): WebClient = builder
-            .baseUrl("https://api.openbrewerydb.org")
+    fun webClient(builder: WebClient.Builder, openBreweryProperties: OpenBreweryProperties): WebClient = builder
+            .baseUrl(openBreweryProperties.baseUrl)
             .build()
 }

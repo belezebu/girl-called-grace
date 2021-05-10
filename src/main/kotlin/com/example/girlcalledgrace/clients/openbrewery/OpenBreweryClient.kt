@@ -11,6 +11,11 @@ class OpenBreweryClient(private val webClient: WebClient) {
             .retrieve()
             .awaitBody<List<Brewery>>()
 
+    suspend fun listBreweries() = webClient.get()
+            .uri { it.path("/breweries").build() }
+            .retrieve()
+            .awaitBody<List<Brewery>>()
+
     suspend fun findBrewery(breweryId: String) = webClient.get()
             .uri { it.path("/breweries").path("/{breweryId}").build(breweryId) }
             .retrieve()
