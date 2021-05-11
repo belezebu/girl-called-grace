@@ -20,7 +20,7 @@ internal class OpenBreweryClientTest {
     private val victim = OpenBreweryClient(webClient)
 
     @Test
-    internal fun searchBreweriesTest() {
+    fun searchBreweriesTest() {
         runBlocking {
             every {
                 webClient.get()
@@ -34,7 +34,7 @@ internal class OpenBreweryClientTest {
     }
 
     @Test
-    internal fun listBreweriesTest() {
+    fun listBreweriesTest() {
         runBlocking {
             every {
                 webClient.get()
@@ -48,7 +48,7 @@ internal class OpenBreweryClientTest {
     }
 
     @Test
-    internal fun findBreweryTest() {
+    fun getBreweryTest() {
         runBlocking {
             every {
                 webClient.get()
@@ -56,7 +56,7 @@ internal class OpenBreweryClientTest {
                         .retrieve()
                         .bodyToMono(any<ParameterizedTypeReference<Brewery>>())
             } returns Mono.just(brewery)
-            val result = victim.findBrewery("12345")
+            val result = victim.getBrewery("12345")
             assertEquals(brewery, result)
         }
     }

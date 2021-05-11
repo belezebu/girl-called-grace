@@ -19,7 +19,7 @@ class BreweryController(private val openBreweryClient: OpenBreweryClient) {
     }
 
     @GetMapping("/breweries/{id}")
-    suspend fun findBrewery(@PathVariable(name = "id") breweryId: String): BreweryRepresentation = openBreweryClient.findBrewery(breweryId).adapt()
+    suspend fun getBrewery(@PathVariable(name = "id") breweryId: String): BreweryRepresentation = openBreweryClient.getBrewery(breweryId).adapt()
 
     @ExceptionHandler(value = [EntityNotFoundException::class])
     fun exceptionHandler(): ResponseEntity<Unit> = ResponseEntity.notFound().build()

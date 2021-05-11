@@ -18,7 +18,7 @@ class OpenBreweryClient(private val webClient: WebClient) {
             .retrieve()
             .awaitBody<List<Brewery>>()
 
-    suspend fun findBrewery(breweryId: String) = webClient.get()
+    suspend fun getBrewery(breweryId: String) = webClient.get()
             .uri { it.path("/breweries").path("/{breweryId}").build(breweryId) }
             .retrieve()
             .onStatus(HttpStatus.NOT_FOUND::equals) { throw EntityNotFoundException("Brewery $breweryId Not Found") }
