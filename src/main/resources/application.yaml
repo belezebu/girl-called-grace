@@ -1,0 +1,10 @@
+spring:
+  security:
+    oauth2:
+      client:
+        clientId: 0oaq7430f8gt326RK5d6
+        clientSecret: U02YEnp6k3EcBYpM1m5Gb-TA-nCbJ6iYiaVludO6
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-15361307.okta.com/oauth2/default
+          jwk-set-uri: https://dev-15361307.okta.com/oauth2/default/v1/keys

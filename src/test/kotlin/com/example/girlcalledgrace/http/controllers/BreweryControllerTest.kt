@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.context.annotation.Import
+import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockJwt
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBodyList
@@ -27,11 +28,12 @@ internal class BreweryControllerTest {
     private lateinit var openBreweryClient: OpenBreweryClient
 
     @Test
-    internal fun searchBreweriesTest() {
+    fun searchBreweriesTest() {
         coEvery {
             openBreweryClient.searchBreweries(searchQuery)
         } returns breweries
-        client.get()
+        client.mutateWith(mockJwt())
+                .get()
                 .uri { it.path("/breweries").queryParam("text", searchQuery).build() }
                 .exchange()
                 .expectStatus()
@@ -42,9 +44,10 @@ internal class BreweryControllerTest {
     @Test
     fun listBreweriesTest() {
         coEvery {
-            openBreweryClient.listBreweries()
+            openBreweryClient.listBreweries(mapOf())
         } returns breweries
-        client.get()
+        client.mutateWith(mockJwt())
+                .get()
                 .uri { it.path("/breweries").build() }
                 .exchange()
                 .expectStatus()
@@ -59,7 +62,8 @@ internal class BreweryControllerTest {
         coEvery {
             openBreweryClient.getBrewery(brewery.id)
         } returns brewery
-        client.get()
+        client.mutateWith(mockJwt())
+                .get()
                 .uri { it.path("/breweries").path("/{breweryId}").build(brewery.id) }
                 .exchange()
                 .expectStatus()
@@ -72,7 +76,8 @@ internal class BreweryControllerTest {
         coEvery {
             openBreweryClient.getBrewery(brewery.id)
         } throws EntityNotFoundException("Brewery ${brewery.id} Not Found")
-        client.get()
+        client.mutateWith(mockJwt())
+                .get()
                 .uri { it.path("/breweries").path("/{breweryId}").build(brewery.id) }
                 .exchange()
                 .expectStatus()

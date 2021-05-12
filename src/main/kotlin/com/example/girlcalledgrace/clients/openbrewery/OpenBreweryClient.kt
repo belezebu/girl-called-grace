@@ -8,19 +8,19 @@ import org.springframework.web.reactive.function.client.awaitBody
 
 @Component
 class OpenBreweryClient(private val webClient: WebClient) {
-    suspend fun searchBreweries(query: String) = webClient.get()
+    suspend fun searchBreweries(query: String): List<Brewery> = webClient.get()
             .uri { it.path("/breweries/search").queryParam("query", query).build() }
             .retrieve()
-            .awaitBody<List<Brewery>>()
+            .awaitBody()
 
-    suspend fun listBreweries() = webClient.get()
-            .uri { it.path("/breweries").build() }
+    suspend fun listBreweries(allParams: Map<String, String>): List<Brewery> = webClient.get()
+            .uri { it.path("/breweries").also { uri -> allParams.forEach { params -> uri.queryParam(params.key, params.value) } }.build() }
             .retrieve()
-            .awaitBody<List<Brewery>>()
+            .awaitBody()
 
-    suspend fun getBrewery(breweryId: String) = webClient.get()
+    suspend fun getBrewery(breweryId: String): Brewery = webClient.get()
             .uri { it.path("/breweries").path("/{breweryId}").build(breweryId) }
             .retrieve()
             .onStatus(HttpStatus.NOT_FOUND::equals) { throw EntityNotFoundException("Brewery $breweryId Not Found") }
-            .awaitBody<Brewery>()
+            .awaitBody()
 }

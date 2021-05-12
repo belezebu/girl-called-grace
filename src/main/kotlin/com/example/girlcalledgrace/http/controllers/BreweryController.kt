@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*
 class BreweryController(private val openBreweryClient: OpenBreweryClient) {
 
     @GetMapping("/breweries")
-    suspend fun getBreweries(@RequestParam(name = "text") searchText: String?): List<BreweryRepresentation> {
+    suspend fun getBreweries(@RequestParam allParams: Map<String, String>): List<BreweryRepresentation> {
+        val searchText = allParams["text"]
         if (searchText != null) {
             return openBreweryClient.searchBreweries(searchText).map { it.adapt() }
         }
-        return openBreweryClient.listBreweries().map { it.adapt() }
+        return openBreweryClient.listBreweries(allParams).map { it.adapt() }
     }
 
     @GetMapping("/breweries/{id}")

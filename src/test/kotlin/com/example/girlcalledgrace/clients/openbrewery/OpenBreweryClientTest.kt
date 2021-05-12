@@ -42,7 +42,7 @@ internal class OpenBreweryClientTest {
                         .retrieve()
                         .bodyToMono(any<ParameterizedTypeReference<List<Brewery>>>())
             } returns Mono.just(listOf(brewery))
-            val result = victim.listBreweries()
+            val result = victim.listBreweries(mapOf())
             assertEquals(listOf(brewery), result)
         }
     }
@@ -54,6 +54,7 @@ internal class OpenBreweryClientTest {
                 webClient.get()
                         .uri(any<Function<UriBuilder, URI>>())
                         .retrieve()
+                        .onStatus(any(), any())
                         .bodyToMono(any<ParameterizedTypeReference<Brewery>>())
             } returns Mono.just(brewery)
             val result = victim.getBrewery("12345")
