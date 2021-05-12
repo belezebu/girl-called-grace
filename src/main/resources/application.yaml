@@ -8,3 +8,9 @@ spring:
         jwt:
           issuer-uri: https://dev-15361307.okta.com/oauth2/default
           jwk-set-uri: https://dev-15361307.okta.com/oauth2/default/v1/keys
+
+springdoc:
+  api-docs:
+    path: /documentation/api-docs
+  swagger-ui:
+    path: /documentation/swagger-ui.html

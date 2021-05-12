@@ -17,6 +17,7 @@ class SecurityConfig {
     @Bean
     fun securityWebFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain = http
             .authorizeExchange()
+            .pathMatchers("/documentation/**").permitAll()
             .pathMatchers("/breweries/**").hasAuthority("SCOPE_breweries:read")
             .anyExchange().authenticated()
             .and()

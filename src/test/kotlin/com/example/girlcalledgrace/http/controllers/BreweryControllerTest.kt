@@ -1,6 +1,7 @@
 package com.example.girlcalledgrace.http.controllers
 
 import com.example.girlcalledgrace.clients.openbrewery.Brewery
+import com.example.girlcalledgrace.clients.openbrewery.BreweryParams
 import com.example.girlcalledgrace.clients.openbrewery.OpenBreweryClient
 import com.example.girlcalledgrace.exceptions.EntityNotFoundException
 import com.example.girlcalledgrace.http.entities.BreweryRepresentation
@@ -44,7 +45,7 @@ internal class BreweryControllerTest {
     @Test
     fun listBreweriesTest() {
         coEvery {
-            openBreweryClient.listBreweries(mapOf())
+            openBreweryClient.listBreweries(BreweryParams())
         } returns breweries
         client.mutateWith(mockJwt())
                 .get()
@@ -86,7 +87,7 @@ internal class BreweryControllerTest {
 
     companion object {
         private const val searchQuery = "dog"
-        private val brewery = Brewery("a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "c", "d", "e", "f", "g")
+        private val brewery = Brewery(123, "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "c", "d", "e", "f", "g")
         private val breweries = listOf(brewery)
     }
 }

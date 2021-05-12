@@ -3,7 +3,7 @@ package com.example.girlcalledgrace.http.entities
 import com.example.girlcalledgrace.clients.openbrewery.Brewery
 
 data class BreweryRepresentation(
-        val id: String,
+        val id: Int,
         val name: String,
         val breweryType: String,
         val street: String?,

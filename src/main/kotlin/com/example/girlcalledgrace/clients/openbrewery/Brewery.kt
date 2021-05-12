@@ -3,7 +3,7 @@ package com.example.girlcalledgrace.clients.openbrewery
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class Brewery(
-        @JsonProperty("id") val id: String,
+        @JsonProperty("id") val id: Int,
         @JsonProperty("name") val name: String,
         @JsonProperty("brewery_type") val breweryType: String,
         @JsonProperty("street") val street: String?,

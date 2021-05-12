@@ -13,12 +13,12 @@ class OpenBreweryClient(private val webClient: WebClient) {
             .retrieve()
             .awaitBody()
 
-    suspend fun listBreweries(allParams: Map<String, String>): List<Brewery> = webClient.get()
-            .uri { it.path("/breweries").also { uri -> allParams.forEach { params -> uri.queryParam(params.key, params.value) } }.build() }
+    suspend fun listBreweries(breweryParams: BreweryParams): List<Brewery> = webClient.get()
+            .uri { it.path("/breweries").also { uri -> breweryParams.toOpenBreweryParams().forEach { params -> uri.queryParam(params.key, params.value) } }.build() }
             .retrieve()
             .awaitBody()
 
-    suspend fun getBrewery(breweryId: String): Brewery = webClient.get()
+    suspend fun getBrewery(breweryId: Int): Brewery = webClient.get()
             .uri { it.path("/breweries").path("/{breweryId}").build(breweryId) }
             .retrieve()
             .onStatus(HttpStatus.NOT_FOUND::equals) { throw EntityNotFoundException("Brewery $breweryId Not Found") }

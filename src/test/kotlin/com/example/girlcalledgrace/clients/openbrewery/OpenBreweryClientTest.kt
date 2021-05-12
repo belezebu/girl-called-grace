@@ -42,7 +42,21 @@ internal class OpenBreweryClientTest {
                         .retrieve()
                         .bodyToMono(any<ParameterizedTypeReference<List<Brewery>>>())
             } returns Mono.just(listOf(brewery))
-            val result = victim.listBreweries(mapOf())
+            val result = victim.listBreweries(BreweryParams())
+            assertEquals(listOf(brewery), result)
+        }
+    }
+
+    @Test
+    fun listBreweriesWithFiltersTest() {
+        runBlocking {
+            every {
+                webClient.get()
+                        .uri(any<Function<UriBuilder, URI>>())
+                        .retrieve()
+                        .bodyToMono(any<ParameterizedTypeReference<List<Brewery>>>())
+            } returns Mono.just(listOf(brewery))
+            val result = victim.listBreweries(BreweryParams("Porto"))
             assertEquals(listOf(brewery), result)
         }
     }
@@ -57,13 +71,13 @@ internal class OpenBreweryClientTest {
                         .onStatus(any(), any())
                         .bodyToMono(any<ParameterizedTypeReference<Brewery>>())
             } returns Mono.just(brewery)
-            val result = victim.getBrewery("12345")
+            val result = victim.getBrewery(123)
             assertEquals(brewery, result)
         }
     }
 
     companion object {
         private const val searchQuery = "dog"
-        private val brewery = Brewery("a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "c", "d", "e", "f", "g")
+        private val brewery = Brewery(123, "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "c", "d", "e", "f", "g")
     }
 }
