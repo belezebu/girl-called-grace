@@ -9,4 +9,4 @@ Java 11
 
 Start the application and go to the [Swagger Docs](http://localhost:8080/documentation/swagger-ui.html)
 
-Test the endpoints providing the bearer token in **Authorize**
+Check the endpoints providing the bearer token in **Authorize**
