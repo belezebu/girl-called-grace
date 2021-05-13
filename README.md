@@ -7,7 +7,7 @@ Application to get brewery information
 
 This application is secured using OAuth2 client credentials flow 
 
-To get a bearer token with scope to read the information from the application:
+* To get a bearer token with scope to read the information from the application
 
 ```
 curl --request POST \
@@ -20,6 +20,7 @@ curl --request POST \
 ```
 
 The credentials are hardcoded in the project at the moment for testing purposes
+
 Should be changed to secrets and injected only in runtime
 
 ### Testing
